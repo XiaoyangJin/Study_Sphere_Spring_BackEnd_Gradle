@@ -11,12 +11,13 @@ public class Post {
     private String title;
     private String summary;
     private String main_content;
-    public int getPost_id() {
-        return post_id;
-    }
 
     // No-argument constructor
     public Post() {
+    }
+    
+    public int getPost_id() {
+        return post_id;
     }
 
     public void setPost_id(int post_id) {
