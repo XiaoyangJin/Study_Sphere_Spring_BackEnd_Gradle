@@ -15,7 +15,7 @@ public class Post {
     // No-argument constructor
     public Post() {
     }
-    
+
     public int getPost_id() {
         return post_id;
     }
