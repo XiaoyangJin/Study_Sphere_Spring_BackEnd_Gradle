@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 public class Post {
 
     @Id
-    private int post_id;
+    private long post_id;
     private String title;
     private String summary;
     private String main_content;
@@ -16,7 +16,7 @@ public class Post {
     public Post() {
     }
 
-    public int getPost_id() {
+    public long getPost_id() {
         return post_id;
     }
 

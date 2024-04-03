@@ -6,14 +6,14 @@ import jakarta.persistence.Id;
 @Entity
 public class Account {
     @Id
-    private int account_id;
+    private long account_id;
     private String username;
     private String password;
 
     public Account() {
     }
 
-    public int getAccount_id() {
+    public long getAccount_id() {
         return account_id;
     }
 
