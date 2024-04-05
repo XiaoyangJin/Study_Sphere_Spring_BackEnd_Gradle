@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/posts")
@@ -25,5 +26,16 @@ public class PostController {
     public ResponseEntity<List<Post>> getAllPosts() {
         List<Post> posts = postRepository.findAll();
         return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deletePost(@PathVariable Long id){
+        Optional<Post> post = postRepository.findById(id);
+        if(post.isPresent()){
+            postRepository.delete(post.get());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
