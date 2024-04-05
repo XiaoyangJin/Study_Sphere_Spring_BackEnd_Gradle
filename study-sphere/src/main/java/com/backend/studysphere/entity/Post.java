@@ -23,8 +23,12 @@ public class Post {
     // No-argument constructor
     public Post() {
     }
-    
 
+    public Post(String title, String summary, String main_content) {
+        this.title = title;
+        this.summary = summary;
+        this.main_content = main_content;
+    }
 
     public long getPost_id() {
         return post_id;
