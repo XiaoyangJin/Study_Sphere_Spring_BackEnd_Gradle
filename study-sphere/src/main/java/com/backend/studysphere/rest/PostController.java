@@ -38,4 +38,19 @@ public class PostController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails){
+        return postRepository.findById(id).map(
+                post -> {
+                    post.setTitle(postDetails.getTitle());
+                    post.setSummary(postDetails.getSummary());
+                    post.setMain_content(postDetails.getMain_content());
+
+                    Post updatedPost = postRepository.save(post);
+                    return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+                }).orElseGet(
+                    () -> new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
+    }
 }
