@@ -1,4 +1,4 @@
-package com.backend.studysphere.service;
+package com.backend.studysphere;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
