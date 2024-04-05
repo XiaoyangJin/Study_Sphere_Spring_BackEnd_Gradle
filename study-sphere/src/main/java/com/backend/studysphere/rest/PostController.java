@@ -28,7 +28,7 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Long id){
         Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()){
