@@ -1,16 +1,31 @@
 package com.backend.studysphere.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.OffsetDateTime;
 
 @Entity
+@Table(name = "account")
 public class Account {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private long account_id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "last_login_time")
+    private OffsetDateTime lastLoginTime;
+
     public Account() {
+    }
+
+    public Account(String username, String password, OffsetDateTime lastLoginTime) {
+        this.username = username;
+        this.password = password;
+        this.lastLoginTime = lastLoginTime;
     }
 
     public long getAccount_id() {
@@ -37,12 +52,21 @@ public class Account {
         this.password = password;
     }
 
+    public OffsetDateTime getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(OffsetDateTime lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
                 "account_id=" + account_id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", lastLoginTime=" + lastLoginTime +
                 '}';
     }
 }
