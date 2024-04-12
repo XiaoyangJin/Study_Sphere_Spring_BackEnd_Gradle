@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/accounts")
@@ -22,10 +23,16 @@ public class AccountController {
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/account/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable long id) {
         return accountRepository.findById(id)
                 .map(account -> new ResponseEntity<>(account, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Account>> getAllAccounts() {
+        List<Account> accounts = accountRepository.findAll();
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 }
