@@ -36,7 +36,7 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/posts/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Long id){
         Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()){
@@ -47,7 +47,7 @@ public class PostController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/posts/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails){
         return postRepository.findById(id).map(
                 post -> {
