@@ -23,7 +23,7 @@ public class PostController {
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable long id) {
         return postRepository.findById(id)
                 .map(post -> new ResponseEntity<>(post, HttpStatus.OK))
@@ -36,7 +36,7 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @DeleteMapping("/posts/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Long id){
         Optional<Post> post = postRepository.findById(id);
         if(post.isPresent()){
@@ -47,7 +47,7 @@ public class PostController {
         }
     }
 
-    @PutMapping("/posts/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails){
         return postRepository.findById(id).map(
                 post -> {
