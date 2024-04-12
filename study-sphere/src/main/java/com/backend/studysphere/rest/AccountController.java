@@ -5,10 +5,7 @@ import com.backend.studysphere.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
 
@@ -23,5 +20,12 @@ public class AccountController {
         account.setLastLoginTime(OffsetDateTime.now()); // Setting the last login time at account creation
         Account savedAccount = accountRepository.save(account);
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getAccountById(@PathVariable long id) {
+        return accountRepository.findById(id)
+                .map(account -> new ResponseEntity<>(account, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
