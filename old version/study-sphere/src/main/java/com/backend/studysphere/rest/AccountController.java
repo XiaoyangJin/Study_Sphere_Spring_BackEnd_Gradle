@@ -23,7 +23,7 @@ public class AccountController {
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
     }
 
-    @GetMapping("/account/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable long id) {
         return accountRepository.findById(id)
                 .map(account -> new ResponseEntity<>(account, HttpStatus.OK))
@@ -35,4 +35,16 @@ public class AccountController {
         List<Account> accounts = accountRepository.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Account> updateAccount(@PathVariable long id, @RequestBody Account accountDetails) {
+        return accountRepository.findById(id).map(account -> {
+            account.setUsername(accountDetails.getUsername());
+            account.setPassword(accountDetails.getPassword());
+            account.setLastLoginTime(accountDetails.getLastLoginTime());
+            Account updatedAccount = accountRepository.save(account);
+            return new ResponseEntity<>(updatedAccount, HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }

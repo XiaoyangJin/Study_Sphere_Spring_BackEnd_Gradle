@@ -1,6 +1,8 @@
 package com.backend.studysphere.entity;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Entity
 @Table(name = "post")
