@@ -31,7 +31,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "user_posts",
+            name = "v2user_posts",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
