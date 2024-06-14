@@ -93,3 +93,55 @@ This is an app where user can post their study progress and knowledge and view o
 <a href="https://www.loom.com/share/ff18511590cb49dba6d4e7867ad7a67b">
     <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/ff18511590cb49dba6d4e7867ad7a67b-with-play.gif">
   </a>
+
+## Database
+PostgreSQL DBeaver
+### User table
+CREATE TABLE v2users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+| Column        | Type         | Description              |
+|---------------|--------------|--------------------------|
+| user_id       | SERIAL       | Primary Key              |
+| username      | VARCHAR(50)  | Unique username          |
+| email         | VARCHAR(100) | Unique email             |
+| password_hash | VARCHAR(255) | Hashed password          |
+| created_at    | TIMESTAMP    | Timestamp of creation    |
+
+
+### Post table
+CREATE TABLE v2posts (
+    post_id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    summary VARCHAR(255),
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+| Column     | Type         | Description              |
+|------------|--------------|--------------------------|
+| post_id    | SERIAL       | Primary Key              |
+| title      | VARCHAR(100) | Title of the post        |
+| summary    | VARCHAR(255) | Summary of the post      |
+| content    | TEXT         | Content of the post      |
+| created_at | TIMESTAMP    | Timestamp of creation    |
+| updated_at | TIMESTAMP    | Timestamp of last update |
+
+### Join table
+CREATE TABLE v2user_posts (
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    PRIMARY KEY (user_id, post_id),
+    FOREIGN KEY (user_id) REFERENCES v2users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES v2posts(post_id) ON DELETE CASCADE
+);
+| Column  | Type | Description                              |
+|---------|------|------------------------------------------|
+| user_id | INT  | Foreign Key referencing `v2users`        |
+| post_id | INT  | Foreign Key referencing `v2posts`        |
+
+The `user_posts` table establishes a many-to-many relationship between v2users and v2posts.
